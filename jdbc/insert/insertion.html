@@ -1,0 +1,38 @@
+import java.sql.*;
+
+public class insertion {
+
+    public static void main(String[] args) {
+
+        String url = "jdbc:mysql://localhost:3306/students";
+        String user = "root";
+        String password = "Mysql@2026#dev";
+
+        try {
+
+            Connection con = DriverManager.getConnection(url, user, password);
+
+            String sql = "INSERT INTO studentinfo(name, age, city) VALUES (?, ?, ?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, "Sahil");
+            ps.setInt(2, 21);
+            ps.setString(3, "Gujarat");
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Data inserted successfully!");
+            } else {
+                System.out.println("Data not inserted.");
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
